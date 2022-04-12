@@ -15,10 +15,12 @@ struct LandmarkDetail: View {
             MapView(coordinate: landmark.locationCoordinate)
                 .ignoresSafeArea(edges: .top)
                 .frame(height: 300)
+                .accessibilityIgnoresInvertColors(true)
 
             CircleImage(image: landmark.image)
                 .offset(y: -130)
                 .padding(.bottom, -130)
+                .accessibilityIgnoresInvertColors(true)
 
             VStack(alignment: .leading) {
                 Text(landmark.name)
