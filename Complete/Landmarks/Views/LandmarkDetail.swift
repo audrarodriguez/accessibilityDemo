@@ -9,7 +9,16 @@ import SwiftUI
 
 struct LandmarkDetail: View {
     var landmark: Landmark
-
+    @Environment(\.sizeCategory) var sizeCategory
+    
+    var landmarkDetails: some View {
+        Group {
+            Text(landmark.park)
+            Spacer()
+            Text(landmark.state)
+        }
+    }
+    
     var body: some View {
         ScrollView {
             MapView(coordinate: landmark.locationCoordinate)
@@ -24,10 +33,12 @@ struct LandmarkDetail: View {
                 Text(landmark.name)
                     .font(.title)
 
-                HStack {
-                    Text(landmark.park)
-                    Spacer()
-                    Text(landmark.state)
+                Group {
+                    if sizeCategory.isAccessibilityCategory {
+                        VStack(alignment: .leading) { landmarkDetails }
+                    } else {
+                        HStack { landmarkDetails }
+                    }
                 }
                 .font(.subheadline)
                 .foregroundColor(.secondary)
